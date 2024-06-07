@@ -6,7 +6,7 @@ import glob
 
 json_dir = "./multimodal-data/images"
 csv_file = "merged.csv"
-keys = ["label","points", "x", "y", "width", "height", "imagePath", "imageWidth", "imageHeight"]
+keys = ["label_name","points", "bbox_x", "bbox_y", "bbox_width", "bbox_height", "image_name", "image_width", "image_height"]
 
 def get_width_height(points):
     # points[0] 是左上角的坐标，points[1] 是右下角的坐标
@@ -27,13 +27,13 @@ for json_file in json_files:
                 continue
             row = {k: v for k, v in item.items() if k in keys}
             x, y, width, height = get_width_height(row.get("points", [[0,0],[0,0]]))
-            row["x"] = x
-            row["y"] = y
-            row["width"] = width
-            row["height"] = height
-            row["imagePath"] = json_data.get("imagePath", "")
-            row["imageHeight"] = json_data.get("imageHeight", "")
-            row["imageWidth"] = json_data.get("imageWidth", "")
+            row["bbox_x"] = x
+            row["bbox_y"] = y
+            row["bbox_width"] = width
+            row["bbox_height"] = height
+            row["image_name"] = json_data.get("imagePath", "")
+            row["image_width"] = json_data.get("imageHeight", "")
+            row["image_height"] = json_data.get("imageWidth", "")
             data.append(row)
 
 try:
